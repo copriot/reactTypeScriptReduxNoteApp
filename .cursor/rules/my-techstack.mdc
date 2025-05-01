@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+My-Stack:
+
+# Core Stack
+
+- Bundler: Vite
+- Framework: React
+- Language: TypeScript
+
+
+# Additional Libraries
+
+- Routing: React Router DOM
+- State Management: React  Redux Toolkit, Redux Persist
+- Styling: Metarial UI
+- Testing: Jest, React Testing Library 
