@@ -3,6 +3,7 @@ import { FC, useState } from "react";
 import TagSelect from "./tagSelect";
 import { NoteData } from "../../types";
 import Detail from "../../pages/detail";
+import { Link } from "react-router-dom";
 
 const Label = styled("label")({
   fontSize: "1rem",
@@ -60,10 +61,11 @@ const Form: FC<Props> = ({ handleSubmit }) => {
 
       <Stack direction="row" spacing={2} justifyContent={"end"}>
         <Button
-          type="button"
           variant="contained"
           color="secondary"
           sx={{ minWidth: "100px" }}
+          component={Link}
+          to=".."
         >
           Back
         </Button>
