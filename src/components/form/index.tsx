@@ -1,9 +1,9 @@
 import { Button, Grid, Stack, styled, TextField } from "@mui/material";
 import { FC, useState } from "react";
 import TagSelect from "./tagSelect";
-import { NoteData } from "../../types";
-import Detail from "../../pages/detail";
+import { Note, NoteData } from "../../types";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Label = styled("label")({
   fontSize: "1rem",
@@ -13,16 +13,25 @@ const Label = styled("label")({
 
 interface Props {
   handleSubmit: (data: NoteData) => void;
+  note?: Note;
 }
 
-const Form: FC<Props> = ({ handleSubmit }) => {
-  const [title, setTitle] = useState<string>("");
-  const [markDown, setMarkDown] = useState<string>("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+const Form: FC<Props> = ({ handleSubmit, note }) => {
+  const [title, setTitle] = useState<string>(note?.title || "");
+  const [markDown, setMarkDown] = useState<string>(note?.markDown || "");
+  const [selectedTags, setSelectedTags] = useState<string[]>(note?.tags || []);
 
   const handleForm = () => {
     if (!title || !markDown || !selectedTags) {
-      alert("Please fill all fields");
+      toast.error("Please fill all fields", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
       return;
     }
     handleSubmit({ title, markDown, tags: selectedTags });
@@ -35,6 +44,7 @@ const Form: FC<Props> = ({ handleSubmit }) => {
       <Grid container spacing={5}>
         <Grid size={6}>
           <TextField
+            value={title}
             label="Title"
             variant="outlined"
             fullWidth
@@ -54,6 +64,7 @@ const Form: FC<Props> = ({ handleSubmit }) => {
           minRows={15}
           maxRows={50}
           multiline
+          value={markDown}
           onChange={(e) => setMarkDown(e.target.value)}
         />
       </Stack>
@@ -65,7 +76,7 @@ const Form: FC<Props> = ({ handleSubmit }) => {
           color="secondary"
           sx={{ minWidth: "100px" }}
           component={Link}
-          to=".."
+          to={note ? `/note/${note.id}` : ".."}
         >
           Back
         </Button>
@@ -78,7 +89,6 @@ const Form: FC<Props> = ({ handleSubmit }) => {
           Save
         </Button>
       </Stack>
-      <Detail />
     </Stack>
   );
 };

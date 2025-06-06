@@ -6,7 +6,8 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { Provider } from "react-redux";
 import store, { persistor } from "./redux/store.ts";
 import { PersistGate } from "redux-persist/integration/react";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //MUI tema sistemi
 const darkTheme = createTheme({
   palette: {
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <App />
+          <ToastContainer />
         </ThemeProvider>
       </PersistGate>
     </Provider>

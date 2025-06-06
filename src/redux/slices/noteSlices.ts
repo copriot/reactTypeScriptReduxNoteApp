@@ -19,9 +19,21 @@ const noteSlice = createSlice({
       //state'e yeni notu eklemek için push luyoruz
       state.notes.push(newNote);
     },
+    deleteNote(state, action: PayloadAction<string>) {
+      //note'un index'ini buluyoruz
+      const i = state.notes.findIndex((note) => note.id === action.payload);
+      //splice ile notu siliyoruz
+      state.notes.splice(i, 1);
+    },
+    updateNote(state, action: PayloadAction<Note>) {
+      //note'un index'ini buluyoruz
+      const i = state.notes.findIndex((note) => note.id === action.payload.id);
+      //splice ile notu güncelliyoruz
+      state.notes.splice(i, 1, action.payload);
+    },
   },
 });
 
-export const { addNote } = noteSlice.actions;
+export const { addNote, deleteNote, updateNote } = noteSlice.actions;
 
 export default noteSlice.reducer;

@@ -20,7 +20,7 @@ const NoteCard: FC<Props> = ({ note }) => {
           <Typography gutterBottom variant="h5" component="div">
             {note.title}
           </Typography>
-          <Stack direction="row" gap={1} mt={2} justifyContent="center">
+          <Stack direction="row" gap={1} mt={2} flexWrap="wrap">
             {note.tags.map((tag) => (
               <Chip label={tag} key={tag} />
             ))}
